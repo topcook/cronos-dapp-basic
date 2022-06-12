@@ -1,5 +1,6 @@
 import React from "react";
-import { Store } from "../store/store-reducer";
+// import { Store } from "../store/store-reducer";
+import { useSelector } from "react-redux";
 
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -7,11 +8,13 @@ import Container from "@mui/material/Container";
 interface IProps {}
 
 const Refreshing: React.FC<IProps> = () => {
-  const { state } = React.useContext(Store);
+  // const { state } = React.useContext(Store);
+  const state = useSelector((state: any) => state.info);
 
   const renderRefreshing = () => {
     return (
       <div>
+
         <Container
           sx={{
             background: "#F5F5F5  0% 0% no-repeat padding-box",
@@ -22,6 +25,7 @@ const Refreshing: React.FC<IProps> = () => {
             textAlign: "center",
           }}
         >
+          
           <Typography>LOADING</Typography>
           <img
             alt="LOADING"

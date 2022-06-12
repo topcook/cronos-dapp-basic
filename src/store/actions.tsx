@@ -1,46 +1,50 @@
-import {
-  Dispatch,
-  IQueryResults,
-  IRefreshing,
-  IWallet,
-  IWalletWeb3Modal,
-} from "./interfaces";
+import { useDispatch } from "react-redux";
 
-// Send an action to the reducer
-
-export const updateRefreshingAction = (
-  dispatch: Dispatch,
-  refreshing: IRefreshing
+export const UpdateRefreshingAction = (
 ) => {
-  return dispatch({
-    type: "REFRESHING_UPDATED",
-    payload: refreshing,
-  });
+  const dispatch = useDispatch();
+  const updateRefreshing = (payload: any) => {
+    dispatch({
+      type: "REFRESHING_UPDATED",
+      payload: payload,
+    })
+  }
+
+  return { updateRefreshing };
 };
 
-export const updateWalletAction = (dispatch: Dispatch, wallet: IWallet) => {
-  return dispatch({
-    type: "WALLET_UPDATED",
-    payload: wallet,
-  });
+export const UpdateWalletAction = () => {
+  const dispatch = useDispatch();
+  const updateWallet = (payload: any) => {
+    dispatch({
+      type: "WALLET_UPDATED",
+      payload: payload,
+    })
+  }
+
+  return { updateWallet };
 };
 
-export const updateWalletWeb3ModalAction = (
-  dispatch: Dispatch,
-  walletWeb3Modal: IWalletWeb3Modal
-) => {
-  return dispatch({
-    type: "WALLETWEB3MODAL_UPDATED",
-    payload: walletWeb3Modal,
-  });
+export const UpdateWalletWeb3ModalAction = () => {
+  const dispatch = useDispatch();
+  const updateWalletWeb3Modal = (payload: any) => {
+    dispatch({
+      type: "WALLETWEB3MODAL_UPDATED",
+      payload: payload,
+    })
+  }
+
+  return { updateWalletWeb3Modal };
 };
 
-export const updateQueryResultsAction = (
-  dispatch: Dispatch,
-  queryResults: IQueryResults
-) => {
-  return dispatch({
-    type: "QUERYRESULTS_UPDATED",
-    payload: queryResults,
-  });
+export const UpdateQueryResultsAction = () => {
+  const dispatch = useDispatch();
+  const updateQueryResults = (payload: any) => {
+    dispatch({
+      type: "QUERYRESULTS_UPDATED",
+      payload: payload,
+    })
+  }
+
+  return { updateQueryResults };
 };

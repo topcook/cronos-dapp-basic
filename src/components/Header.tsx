@@ -13,7 +13,9 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import RocketIcon from "@mui/icons-material/Rocket";
 
-import { Store } from "../store/store-reducer";
+// import { Store } from "../store/store-reducer";
+import { useSelector } from 'react-redux';
+
 import * as utils from "../helpers/utils";
 
 // These are the wallet SDK helpers
@@ -22,11 +24,12 @@ import * as walletDefiwallet from "../helpers/wallet-defiwallet";
 import * as walletConnect from "../helpers/wallet-connect";
 
 import {
-  updateQueryResultsAction,
-  updateRefreshingAction,
-  updateWalletAction,
+  UpdateQueryResultsAction,
+  UpdateRefreshingAction,
+  UpdateWalletAction,
 } from "../store/actions";
-import { defaultQueryResults, defaultWallet } from "../store/interfaces";
+import { defaultQueryResults, defaultWallet, IState } from "../store/interfaces";
+import { info } from "console";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -77,10 +80,14 @@ declare global {
   }
 }
 
-interface IProps {}
+interface IProps { }
 
 const Header: React.FC<IProps> = () => {
-  const { state, dispatch } = React.useContext(Store);
+  const state = useSelector((state: any) => state.info);
+  const { updateRefreshing } = UpdateRefreshingAction();
+  const { updateWallet } = UpdateWalletAction();
+  const { updateQueryResults } = UpdateQueryResultsAction();
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -101,29 +108,36 @@ const Header: React.FC<IProps> = () => {
   };
 
   const handleClickConnect = async (option: string) => {
-    updateRefreshingAction(dispatch, {
+    updateRefreshing({
       status: true,
       message: "Connecting wallet...",
     });
+
     let newWallet: any;
+
     switch (option) {
       // Wallet injected within browser (MetaMask)
       case "metamask-injected":
         newWallet = await walletMetamask.connect();
         break;
+
       // Crypto.com DeFi Wallet Extension (browser)
       case "defiwallet":
         newWallet = await walletDefiwallet.connect();
         break;
       // Crypto.com DeFi Wallet mobile app (via Wallet Connect)
+
       case "wallet-connect":
         newWallet = await walletConnect.connect();
         break;
+
       default:
         newWallet = await walletMetamask.connect();
     }
+
     // If wallet is connected, query the blockchain and update stored values
     if (newWallet.connected) {
+
       const lastBlockNumber = await utils.getLastBlockNumber(
         newWallet.serverWeb3Provider
       );
@@ -135,18 +149,21 @@ const Header: React.FC<IProps> = () => {
         newWallet.serverWeb3Provider,
         newWallet.address
       );
-      updateWalletAction(dispatch, newWallet);
-      updateQueryResultsAction(dispatch, {
+
+      updateWallet(newWallet);
+      updateQueryResults({
         ...defaultQueryResults,
         lastBlockNumber: lastBlockNumber,
         croBalance: croBalance,
         erc20Balance: erc20Balance,
       });
     }
-    updateRefreshingAction(dispatch, {
+
+    updateRefreshing({
       status: false,
       message: "Complete",
     });
+
     handleClose();
   };
 
@@ -155,22 +172,27 @@ const Header: React.FC<IProps> = () => {
   // The recommended secure approach is for the user to disconnect their wallet
   // themselves in the wallet app or browser extension.
   const disconnectWallet = async () => {
-    updateRefreshingAction(dispatch, {
+
+    updateRefreshing({
       status: true,
       message: "Disconnecting wallet...",
     });
+
     switch (state.wallet.walletProviderName) {
       case "defiwallet":
         await state.wallet.wcConnector.deactivate();
         break;
+
       default:
     }
-    updateRefreshingAction(dispatch, {
+
+    updateRefreshing({
       status: false,
       message: "Complete",
     });
-    updateWalletAction(dispatch, { ...defaultWallet });
-    updateQueryResultsAction(dispatch, { ...defaultQueryResults });
+
+    updateWallet({ ...defaultWallet });
+    updateQueryResults({ ...defaultQueryResults });
   };
 
   const renderLoginButton = () => {
