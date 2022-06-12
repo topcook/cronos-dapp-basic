@@ -9,10 +9,10 @@ export const configVars = {
     chainType: "testnet",
     nativeCurrency: {
       name: "CRO",
-      symbol: "CRO",
+      symbol: "TCRO",
       decimals: 18,
     },
-    blockExplorerUrl: "https://cronos.crypto.org/explorer/testnet3/",
+    blockExplorerUrl: "https://testnet.cronoscan.com/",
   },
   rpcNetwork_mainnet: {
     rpcUrl: "https://evm.cronos.org/",

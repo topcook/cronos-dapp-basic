@@ -45,7 +45,7 @@ export const connect = async (): Promise<IWallet> => {
     if (!(chainId === config.configVars.rpcNetwork.chainIdHex)) {
       await switchNetwork();
       await utils.delay(2000);
-      return defaultWallet;
+      // return defaultWallet;
     }
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
