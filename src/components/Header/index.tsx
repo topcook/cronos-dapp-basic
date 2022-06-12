@@ -13,23 +13,23 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import RocketIcon from "@mui/icons-material/Rocket";
 
-// import { Store } from "../store/store-reducer";
 import { useSelector } from 'react-redux';
 
-import * as utils from "../helpers/utils";
+import * as utils from "../../helpers/utils";
 
 // These are the wallet SDK helpers
-import * as walletMetamask from "../helpers/wallet-metamask";
-import * as walletDefiwallet from "../helpers/wallet-defiwallet";
-import * as walletConnect from "../helpers/wallet-connect";
+import * as walletMetamask from "../../helpers/wallet-metamask";
+import * as walletDefiwallet from "../../helpers/wallet-defiwallet";
+import * as walletConnect from "../../helpers/wallet-connect";
 
 import {
   UpdateQueryResultsAction,
   UpdateRefreshingAction,
   UpdateWalletAction,
-} from "../store/actions";
-import { defaultQueryResults, defaultWallet, IState } from "../store/interfaces";
+} from "../../store/actions";
+import { defaultQueryResults, defaultWallet, IState } from "../../store/interfaces";
 import { info } from "console";
+import './index.scss';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -141,10 +141,12 @@ const Header: React.FC<IProps> = () => {
       const lastBlockNumber = await utils.getLastBlockNumber(
         newWallet.serverWeb3Provider
       );
+
       const croBalance = await utils.getCroBalance(
         newWallet.serverWeb3Provider,
         newWallet.address
       );
+
       const erc20Balance = await utils.getBalance(
         newWallet.serverWeb3Provider,
         newWallet.address
@@ -257,19 +259,18 @@ const Header: React.FC<IProps> = () => {
   };
 
   return (
-    <div>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+    <div className="header">
+      <Box>
+        <AppBar>
           <Toolbar>
             <IconButton
               size="large"
               edge="start"
               color="inherit"
-              sx={{ mr: 2 }}
             >
               <RocketIcon />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant="h6" component="div">
               My Dapp
             </Typography>
             {renderLoginButton()}

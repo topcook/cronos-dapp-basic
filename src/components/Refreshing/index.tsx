@@ -1,11 +1,11 @@
 import React from "react";
-// import { Store } from "../store/store-reducer";
 import { useSelector } from "react-redux";
 
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import './index.scss';
 
-interface IProps {}
+interface IProps { }
 
 const Refreshing: React.FC<IProps> = () => {
   // const { state } = React.useContext(Store);
@@ -13,30 +13,22 @@ const Refreshing: React.FC<IProps> = () => {
 
   const renderRefreshing = () => {
     return (
-      <div>
+      <div className="render-refreshing">
 
-        <Container
-          sx={{
-            background: "#F5F5F5  0% 0% no-repeat padding-box",
-            borderRadius: "8px",
-            opacity: 1,
-            marginBottom: "40px",
-            padding: "10px",
-            textAlign: "center",
-          }}
-        >
-          
+        <Container>
+
           <Typography>LOADING</Typography>
+
           <img
-            alt="LOADING"
-            width="42px"
-            height="42px"
             src="/images/loader.gif"
           />{" "}
+
           <br />
+
           <Typography noWrap={false}>
             {state.refreshing.message} <br />
           </Typography>
+
         </Container>
       </div>
     );

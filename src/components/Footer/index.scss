@@ -1,0 +1,14 @@
+.footer {
+    .MuiBox-root {
+        flex-grow: 1;
+
+        .MuiAppBar-root {
+            position: static;
+
+            .MuiBox-root {
+                text-align: center;
+                margin: 16px;
+            }
+        }
+    }
+}

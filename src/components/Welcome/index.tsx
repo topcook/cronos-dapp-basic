@@ -1,17 +1,16 @@
 import React from "react";
-// import { Store } from "../store/store-reducer";
 import { useSelector } from "react-redux";
 
 import { styled } from "@mui/material/styles";
 import { Box, Button, Link, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 
-import * as config from "../config/config";
-import * as utils from "../helpers/utils";
+import * as config from "../../config/config";
+import * as utils from "../../helpers/utils";
 import {
   UpdateQueryResultsAction,
   UpdateRefreshingAction,
-} from "../store/actions";
+} from "../../store/actions";
 
 const ActionButton = styled(Button)({
   marginTop: "20px",
@@ -22,7 +21,6 @@ const ActionButton = styled(Button)({
 interface IProps { }
 
 const Welcome: React.FC<IProps> = () => {
-  // const { state, dispatch } = React.useContext(Store);
   const state = useSelector((state: any) => state.info);
   const { updateQueryResults } = UpdateQueryResultsAction();
   const { updateRefreshing } = UpdateRefreshingAction();

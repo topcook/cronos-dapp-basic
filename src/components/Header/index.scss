@@ -1,0 +1,20 @@
+.header {
+    .MuiBox-root {
+        flex-grow: 1;
+
+        .MuiAppBar-root {
+            position: static;
+
+            .MuiToolbar-root {
+
+                .MuiIconButton-root {
+                    margin-right: 16px;
+                }
+
+                .MuiTypography-root {
+                    flex-grow: 1;
+                }
+            }
+        }
+    }
+}
